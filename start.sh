@@ -6,6 +6,10 @@ if [ -z "${DEPLOY_ARCHIVE_KEY:-}" ]; then
   exit 78
 fi
 
+if [ -z "${DATABASE_URL:-}" ] && [ -n "${TAMYEZ_DATABASE_URL:-}" ]; then
+  export DATABASE_URL="$TAMYEZ_DATABASE_URL"
+fi
+
 umask 077
 runtime_archive="/tmp/app-runtime.tar.gz"
 
@@ -26,5 +30,6 @@ rm -rf /app/dist /app/server /app/db /app/base44 /app/server.js
 tar -xzf "$runtime_archive" -C /app
 rm -f "$runtime_archive"
 unset DEPLOY_ARCHIVE_KEY
+unset TAMYEZ_DATABASE_URL
 
 exec node server.js

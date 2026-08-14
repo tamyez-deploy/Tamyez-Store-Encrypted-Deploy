@@ -9,7 +9,7 @@ fi
 umask 077
 runtime_archive="/tmp/app-runtime.tar.gz"
 
-openssl enc -d -aes-256-cbc -pbkdf2 -iter 210000 -md sha256 \
+openssl enc -d -aes-256-cbc -pbkdf2 -iter 20000 -md sha256 \
   -pass env:DEPLOY_ARCHIVE_KEY \
   -in /opt/tamyez/app-runtime.tar.gz.enc \
   -out "$runtime_archive"
@@ -22,7 +22,7 @@ if [ "$expected_hash" != "$actual_hash" ]; then
   exit 74
 fi
 
-rm -rf /app/dist /app/server /app/db /app/server.js
+rm -rf /app/dist /app/server /app/db /app/base44 /app/server.js
 tar -xzf "$runtime_archive" -C /app
 rm -f "$runtime_archive"
 unset DEPLOY_ARCHIVE_KEY

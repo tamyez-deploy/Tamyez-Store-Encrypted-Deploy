@@ -26,7 +26,7 @@ if [ "$expected_hash" != "$actual_hash" ]; then
   exit 74
 fi
 
-rm -rf /app/dist /app/server /app/db /app/base44 /app/server.js
+rm -rf /app/dist /app/server /app/db /app/scripts /app/server.js
 tar -xzf "$runtime_archive" -C /app
 rm -f "$runtime_archive"
 unset DEPLOY_ARCHIVE_KEY

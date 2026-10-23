@@ -6,8 +6,8 @@ RUN apk add --no-cache openssl \
     && corepack enable \
     && corepack prepare pnpm@10.28.2 --activate
 
-COPY package.json ./
-RUN pnpm install --prod --frozen-lockfile=false
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
 
 COPY app-runtime.tar.gz.enc /opt/tamyez/app-runtime.tar.gz.enc
 COPY app-runtime.sha256 /opt/tamyez/app-runtime.sha256
